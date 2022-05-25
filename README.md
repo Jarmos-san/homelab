@@ -11,5 +11,6 @@ That said, for now following are the necessary I need for the server:
 5. [Jeyllfin](https://jellyfin.org) for managing all the media downloaded using the aforementioned tools.
 6. [Heimdall](https://heimdall.site) for managing the containerised applications within the browser.
 7. [Pi-hole](https://pi-hole.net) to block ads on the whole network.
+8. [Transmission BitTorrent Client](https://transmissionbt.com) to download the actual torrent files.
 
 ...more such tools will be added to the list as & when the need arises!
