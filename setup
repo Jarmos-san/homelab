@@ -1,3 +1,12 @@
 #!/usr/bin/env python3
 
-print('Hello World!')
+"""Script to automate my personal homelab server setup."""
+
+
+def main() -> None:
+    """Entrypoint of the script."""
+    print("Hello World!")
+
+
+if __name__ == "__main__":
+    main()
