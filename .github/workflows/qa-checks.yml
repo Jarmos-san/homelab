@@ -1,0 +1,32 @@
+name: QA Checks
+
+on:
+  push:
+    branches-ignore:
+      - "dependabot/**"
+
+jobs:
+  qa-checks:
+    name: QA Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4.0.0
+
+      - name: Setup Python for the Environment
+        uses: actions/setup-python@v4.7.0
+        with:
+          python-version: '3.11'
+          cache: poetry
+
+      - name: Install the Development Dependencies
+        run: poetry install --no-root --only=dev
+
+      - name: Run Type Checking
+        run: mypy .
+
+      - name: Run Formatting Checks
+        run: black . --check
+
+      - name: Run Linting Checks
+        run: ruff .
