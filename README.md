@@ -1,5 +1,10 @@
 # Homelab Server
 
+[![QA Checks](https://github.com/Jarmos-san/homelab/actions/workflows/qa-checks.yml/badge.svg)](https://github.com/Jarmos-san/homelab/actions/workflows/qa-checks.yml)
+![GitHub](https://img.shields.io/github/license/Jarmos-san/homelab?style=flat-square&logo=GitHub&label=License)
+![GitHub repo size](https://img.shields.io/github/repo-size/Jarmos-san/homelab?style=flat-sqare&logo=GitHub)
+![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/Jarmosan)
+
 **DISCLAIMER**: This is a **work-in-progress** project!
 
 This repository holds the contents for setting up a personal
