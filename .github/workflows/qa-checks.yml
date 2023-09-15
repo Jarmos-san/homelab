@@ -13,17 +13,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4.0.0
 
-      - name: Setup Python for the Environment
-        uses: actions/setup-python@v4.7.0
-        with:
-          python-version: "3.11"
-          cache: poetry
-
       - name: Install Poetry
         run: |
           export POETRY_HOME=/opt/poetry
           python3 install-poetry.py --version 1.6.1
           $POETRY_HOME/bin/poetry --version
+
+      - name: Setup Python for the Environment
+        uses: actions/setup-python@v4.7.0
+        with:
+          python-version: "3.11"
+          cache: poetry
 
       - name: Install the Development Dependencies
         run: poetry install --no-root --only=dev
