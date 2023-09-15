@@ -16,8 +16,8 @@ jobs:
       - name: Install Poetry
         run: |
           export POETRY_HOME=/opt/poetry
-          curl --fail --silent --show-error --location https://install.python-poetry.org
-          python3 install-poetry.py --version 1.6.1
+          curl --fail --silent --show-error --location https://install.python-poetry.org \
+            | python3 -
           $POETRY_HOME/bin/poetry --version
 
       - name: Setup Python for the Environment
