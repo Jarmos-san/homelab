@@ -19,3 +19,13 @@ pyright = "^1.1.327"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+select = ["D", "E", "F", "I", "RUF"]
+ignore = ["D211", "D212"]
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.pyright]
+typeCheckingMode = "strict"
