@@ -1,12 +1,169 @@
-#!/usr/bin/env python3
+#!/usr/bin/env bash
 
-"""Script to automate my personal homelab server setup."""
+set -euo pipefail
 
+# Script to setup the homelab environment on all sorts of machines
+#
+# Author: Somraj Saha
+# License: MIT License
+# (see https://github.com/Jarmos-san/homelab/blob/main/LICENSE for info).
 
-def main() -> None:
-    """Entrypoint of the script."""
-    print("Hello World!")
+# Some colour codes to make the formatted output prettier.
+readonly RED="\033[0;31m"
+readonly GREEN="\033[0;32m"
+readonly YELLOW="\033[0;33m"
+readonly BLUE="\033[0;34m"
+readonly NOCOLOR="\033[0m"
 
+###############################################################################
+# Print a pretty-formatted error message
+###############################################################################
+error() {
+  echo -e "${RED}[ERROR]${NOCOLOR} $1"
+}
 
-if __name__ == "__main__":
-    main()
+###############################################################################
+# Print a pretty-formatted informational message
+###############################################################################
+info() {
+  echo -e "${BLUE}[INFO]${NOCOLOR} $1"
+}
+
+###############################################################################
+# Print a pretty-formatted warning message
+###############################################################################
+warn() {
+  echo -e "${YELLOW}[WARN]${NOCOLOR} $1"
+}
+
+###############################################################################
+# Print a pretty-formatted success message
+###############################################################################
+success() {
+  echo -e "${GREEN}[SUCESS]${NOCOLOR} $1"
+}
+
+###############################################################################
+# Run some system updates and ensure the machines has the latest system updates.
+###############################################################################
+run_system_updates() {
+  info "Fetching the latest securty and software updates for the system..."
+  apt-get update --yes && apt-get upgrade
+  success "System updates complete!"
+}
+
+###############################################################################
+# Install some necessary dependencies and tools required by the other tools
+###############################################################################
+install_essential_dependencies() {
+  info "Fetching some essential tools and dependencies..."
+  apt-get install gnupg curl git ca-certificates
+  success "Essential tools and dependencies installation complete!"
+}
+
+###############################################################################
+# Install Docker to manage various services in the system
+###############################################################################
+install_docker() {
+  download_url="https://download.docker.com/linux/debian"
+  gpg_key="$download_url/gpg"
+  keyring_dir="/etc/apt/keyrings"
+  apt_list_entry="deb [arch='$(dpkg --print-architecture)' \
+    signed-by=$keyring_dir/docker.gpg] $download_url \
+    '$(source /etc/os-release && echo "$VERSION_CODENAME")' stable"
+
+  info "Preparing to setup and download Docker..."
+
+  # Setup the GPG keyring directory
+  install --mode=0755 --directory $keyring_dir
+
+  # Download the GPG keyring
+  curl --fail --silent --show-error --location $gpg_key \
+    | gpg --dearmor -o "$keyring_dir/docker.gpg"
+
+  # Make the GPG key accessible by the current user
+  chmod a+r "$keyring_dir/docker.gpg"
+
+  # Update the list of repositories for APT
+  echo "$apt_list_entry" \
+    | tee /etc/apt/sources.list.d/docker.list >/dev/null
+
+  info "Installing Docker..."
+
+  # Perform a customary "apt update" to flush and update the apt cache
+  apt-get update
+
+  # Install the necessary tools used along with Docker
+  apt-get install \
+    docker-ce \
+    docker-ce-cli \
+    containerd.io \
+    docker-buildx-plugin \
+    docker-compose-plugin
+
+  sucess "Docker installation complete!"
+}
+
+###############################################################################
+# Setup the filesystem and the environment
+###############################################################################
+setup_environment() {
+  scripts_directory="$HOME/.local/bin"
+  config_files=()
+  scripts=()
+
+  # Check if the "~/.local/bin" directory exists, if not create it for storing
+  # some scripts
+  if [[ ! -d "$scripts_directory" ]]; then
+    info "Setting up some automation scripts for the user..."
+
+    mkdir --parents "$scripts_directory"
+
+    # Download all the necessary scripts from the remote to the local system
+    for script in "${scripts[@]}"; do
+      curl --fail --silent --show-error --location "$script" \
+        >>"$scripts_directory/$script"
+    done
+
+    success "Successfully setup the automation scripts!"
+  fi
+
+  # TODO: Create an associate array of the config files on the remote and the local system
+  for config_file in "${config_files[@]}"; do
+    if [[ ! -f "$config_file" ]]; then
+      echo "Hello World!"
+    fi
+  done
+}
+
+###############################################################################
+# Cleanup the system after the script completes invocation
+###############################################################################
+cleanup() {
+  # Remove any unused and redundant packages from the apt cache
+  apt-get autoremove --purge
+}
+
+###############################################################################
+# The entrypoint of the script when invoked directly.
+###############################################################################
+main() {
+  # Run certain invocations procedurally
+  run_system_updates
+  install_essential_dependencies
+  install_docker
+  setup_environment
+
+  success "Homelab setup complete...please restart the system!"
+}
+
+# Check if the script is run with sudo privileges
+if [[ $EUID -ne 0 ]]; then
+  error "This script requires superuser privileges. Please run it with sudo."
+  exit 1
+else
+  main
+fi
+
+# Cleanup any runtime residuals if anything is left behind post execution
+trap cleanup EXIT
