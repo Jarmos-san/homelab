@@ -161,7 +161,7 @@ main() {
 
   # Logic to restart the system based on the user feedback
   if [[ "$choice" == "y" || "$choice" == 'yes' ]]; then
-    shutdown -r
+    shutdown now -r
   elif [[ "$choice" == 'n' || "$choice" == "no" ]]; then
     info "Restart procedure cancelled...please restart the system later on!"
   else
