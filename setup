@@ -108,32 +108,29 @@ install_docker() {
 # Setup the filesystem and the environment
 ###############################################################################
 setup_environment() {
-  scripts_directory="$HOME/.local/bin"
-  config_files=()
-  scripts=()
+  info "Fetching the configurations and stuff from the remote repository..."
 
-  # Check if the "~/.local/bin" directory exists, if not create it for storing
-  # some scripts
-  if [[ ! -d "$scripts_directory" ]]; then
-    info "Setting up some automation scripts for the user..."
+  # Clone the remote repository to the homelab system
+  git clone git@github.com:Jarmos-san/homelab
 
-    mkdir --parents "$scripts_directory"
+  info "Setting up the homelab environment and its configurations..."
 
-    # Download all the necessary scripts from the remote to the local system
-    for script in "${scripts[@]}"; do
-      curl --fail --silent --show-error --location "$script" \
-        >>"$scripts_directory/$script"
-    done
+  # Create symlinks of the configuration files to the appropriate location
+  for file in "$HOME"/homelab/configs/*; do
+    ln --symbolic "$file" "$HOME/.config/"
+  done
 
-    success "Successfully setup the automation scripts!"
+  # Create the folder to store some scripts, if it doesn't already exists
+  if [[ ! -d "$HOME/.local/bin" ]]; then
+    mkdir --parents "$HOME/.local/bin"
   fi
 
-  # TODO: Create an associate array of the config files on the remote and the local system
-  for config_file in "${config_files[@]}"; do
-    if [[ ! -f "$config_file" ]]; then
-      echo "Hello World!"
-    fi
+  # Create symlinks of the scripts to their appropriate location
+  for script in "$HOME"/homelab/scripts/*; do
+    ln --symbolic "$script" "$HOME/.local/bin/"
   done
+
+  sucess "Homelab configuration complete!"
 }
 
 ###############################################################################
@@ -154,7 +151,7 @@ main() {
   install_docker
   setup_environment
 
-  success "Homelab setup complete...please restart the system!"
+  success "Setup complete...please restart the system!"
 }
 
 # Check if the script is run with sudo privileges
