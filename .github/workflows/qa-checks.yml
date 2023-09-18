@@ -13,23 +13,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4.0.0
 
-      - name: Install Poetry
-        run: pipx install poetry
-
       - name: Setup Python for the Environment
         uses: actions/setup-python@v4.7.0
         with:
           python-version: "3.11"
-          cache: poetry
 
-      - name: Install the Development Dependencies
-        run: poetry install --no-root --only=dev
-
-      - name: Run Type Checking
-        run: poetry run mypy setup
-
-      - name: Run Formatting Checks
-        run: poetry run black setup --check
-
-      - name: Run Linting Checks
-        run: poetry run ruff check setup
+      - name: Setup Pre-Commit for QA Checks
+        uses: pre-commit/action@v3.0.0
