@@ -13,7 +13,7 @@ This repository holds the contents for setting up a personal
 The server will be powered by [Debian](https://www.debian.org/) (or a distro
 based on Debian like [Ubuntu Server](https://ubuntu.com/server)) and the tools
 installed on the server will be managed by [Docker](https://www.docker.com).
-There is also an [automation script](./script) which downloads and sets up some
+There is also an [automation script](./setup) which downloads and sets up some
 of the necessary tools for the server before the services can be setup.
 
 That said, following are a list of tools I plan on adding to the server;
