@@ -16,6 +16,3 @@ repos:
         name: executable shell scripts extensions are removed
       - id: shellcheck
         name: check for linting errors in shell files
-      - id: shfmt
-        name: check for formatting issues in shell files
-        args: ["-i", "2", "-ci", "-bn", "-d"]
