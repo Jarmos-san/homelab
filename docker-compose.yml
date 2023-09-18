@@ -1,5 +1,21 @@
 version: "3"
 
 services:
-  hello-world:
-    image: hello-world
+  homepage:
+    image: ghcr.io/benphelps/homepage:latest
+    container_name: homepage
+    environment:
+      PUID: 1000
+      PGID: 1000
+    ports:
+      - target: 3000
+        published: 3000
+    volumes:
+      - type: bind
+        source: ~/.config/homepage
+        target: /app/config
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        read_only: true
+    restart: unless-stopped
