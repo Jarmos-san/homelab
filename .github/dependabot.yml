@@ -9,12 +9,3 @@ updates:
       timezone: "Asia/Kolkata"
     labels:
       - "dependencies"
-
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "daily"
-      time: "06:00"
-      timezone: "Asia/Kolkata"
-    labels:
-      - "dependencies"
