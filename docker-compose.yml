@@ -19,3 +19,29 @@ services:
         target: /var/run/docker.sock
         read_only: true
     restart: unless-stopped
+
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+      # - USER=jarmos
+      # - PASS=jarmos@4991
+    ports:
+      - target: 9091
+        published: 9091
+      - target: 51413
+        published: 51413
+      - target: 51413
+        published: 51413
+        protocol: udp
+    volumes:
+      - type: bind
+        source: ~/Downloads
+        target: /downloads
+      - type: bind
+        source: ~/.config/transmission
+        target: /config
+    restart: unless-stopped
