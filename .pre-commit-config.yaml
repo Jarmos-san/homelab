@@ -7,20 +7,13 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.5.1
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 3.0.0
     hooks:
-      - id: mypy
-        name: type check Python files
-
-  - repo: https://github.com/psf/black
-    rev: 23.9.1
-    hooks:
-      - id: black
-        name: check formatting errors in Python files
-
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.0.289
-    hooks:
-      - id: ruff
-        name: lint Python files
+      - id: script-must-not-have-extension
+        name: executable shell scripts extensions are removed
+      - id: shellcheck
+        name: check for linting errors in shell files
+      - id: shfmt
+        name: check for formatting issues in shell files
+        args: ["-i", "2", "-ci", "-bn"]
