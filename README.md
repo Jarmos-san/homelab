@@ -8,7 +8,12 @@
 **DISCLAIMER**: This is a **work-in-progress** project!
 
 This repository holds the contents for setting up a personal
-[Home Server](https://en.wikipedia.org/wiki/Home_server).
+[Home Server](https://en.wikipedia.org/wiki/Home_server). You can run the
+following command to automate the setup procedure at one go;
+
+```console
+curl -fsSL https://tinyurl.com/setup-homelab | bash
+```
 
 The server will be powered by [Debian](https://www.debian.org/) (or a distro
 based on Debian like [Ubuntu Server](https://ubuntu.com/server)) and the tools
