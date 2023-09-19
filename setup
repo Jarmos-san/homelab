@@ -158,6 +158,26 @@ setup_environment() {
 }
 
 ###############################################################################
+# Prompt the user for a system restart to complete the setup
+###############################################################################
+prompt_system_restart() {
+  # Prompt the user whether to restart the system or not to
+  read -r -p "Restart the system right? [Y/n]: " choice
+
+  # Ensure the user feedback is converted to lowercase
+  choice=${choice,,}
+
+  # Logic to restart the system based on the user feedback
+  if [[ "$choice" == "y" || "$choice" == 'yes' ]]; then
+    shutdown now -r
+  elif [[ "$choice" == 'n' || "$choice" == "no" ]]; then
+    info "Restart procedure cancelled...please restart the system later on!"
+  else
+    warn "Invalid choice...please manually restart the system!"
+  fi
+}
+
+###############################################################################
 # Cleanup the system after the script completes invocation
 ###############################################################################
 cleanup() {
@@ -177,20 +197,7 @@ main() {
 
   success "Setup complete...a restart is needed!"
 
-  # Prompt the user whether to restart the system or not to
-  read -r -p "Restart the system right? [Y/n]: " choice
-
-  # Ensure the user feedback is converted to lowercase
-  choice=${choice,,}
-
-  # Logic to restart the system based on the user feedback
-  if [[ "$choice" == "y" || "$choice" == 'yes' ]]; then
-    shutdown now -r
-  elif [[ "$choice" == 'n' || "$choice" == "no" ]]; then
-    info "Restart procedure cancelled...please restart the system later on!"
-  else
-    warn "Invalid choice...please manually restart the system!"
-  fi
+  prompt_system_restart
 }
 
 # Check if the script is run with sudo privileges
