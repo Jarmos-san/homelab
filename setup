@@ -57,7 +57,7 @@ run_system_updates() {
 ###############################################################################
 install_essential_dependencies() {
   info "Fetching some essential tools and dependencies..."
-  apt-get install gnupg curl git ca-certificates
+  apt-get install gnupg curl git ca-certificates vim
   success "Essential tools and dependencies installation complete!"
 }
 
