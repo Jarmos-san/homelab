@@ -108,12 +108,21 @@ install_docker() {
 # Setup the filesystem and the environment
 ###############################################################################
 setup_environment() {
+  necessary_folders=("downloads" "movies" "animes" "tv-shows" "music")
+
   info "Fetching the configurations and stuff from the remote repository..."
 
   # Clone the remote repository to the homelab system
   git clone git@github.com:Jarmos-san/homelab
 
   info "Setting up the homelab environment and its configurations..."
+
+  # Create necessary folders to store data in the homelab
+  for folder in "${necessary_folders[@]}"; do
+    if [[ ! -f "$HOME/$folder" ]]; then
+      mkdir --parents "$HOME/$folder"
+    fi
+  done
 
   # Create symlinks of the configuration files to the appropriate location
   for file in "$HOME"/homelab/configs/*; do
