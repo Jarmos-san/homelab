@@ -105,6 +105,39 @@ install_docker() {
 }
 
 ###############################################################################
+# Create some necessary folders to setup the homelab environment
+###############################################################################
+create_necessary_folders() {
+  # Create necessary folders to store data in the homelab
+  for folder in "${necessary_folders[@]}"; do
+    if [[ ! -f "$HOME/$folder" ]]; then
+      mkdir --parents "$HOME/$folder"
+    fi
+  done
+
+  # Create the folder to store some scripts, if it doesn't already exists
+  if [[ ! -d "$HOME/.local/bin" ]]; then
+    mkdir --parents "$HOME/.local/bin"
+  fi
+}
+
+###############################################################################
+# Create symlinks for certain scripts and configuration files in the local
+# repository
+###############################################################################
+setup_symlinks() {
+  # Create symlinks of the configuration files to the appropriate location
+  for file in "$HOME"/homelab/configs/*; do
+    ln --symbolic "$file" "$HOME/.config/"
+  done
+
+  # Create symlinks of the scripts to their appropriate location
+  for script in "$HOME"/homelab/scripts/*; do
+    ln --symbolic "$script" "$HOME/.local/bin/"
+  done
+}
+
+###############################################################################
 # Setup the filesystem and the environment
 ###############################################################################
 setup_environment() {
@@ -117,27 +150,9 @@ setup_environment() {
 
   info "Setting up the homelab environment and its configurations..."
 
-  # Create necessary folders to store data in the homelab
-  for folder in "${necessary_folders[@]}"; do
-    if [[ ! -f "$HOME/$folder" ]]; then
-      mkdir --parents "$HOME/$folder"
-    fi
-  done
+  create_necessary_folders
 
-  # Create symlinks of the configuration files to the appropriate location
-  for file in "$HOME"/homelab/configs/*; do
-    ln --symbolic "$file" "$HOME/.config/"
-  done
-
-  # Create the folder to store some scripts, if it doesn't already exists
-  if [[ ! -d "$HOME/.local/bin" ]]; then
-    mkdir --parents "$HOME/.local/bin"
-  fi
-
-  # Create symlinks of the scripts to their appropriate location
-  for script in "$HOME"/homelab/scripts/*; do
-    ln --symbolic "$script" "$HOME/.local/bin/"
-  done
+  setup_symlinks
 
   sucess "Homelab configuration complete!"
 }
