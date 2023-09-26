@@ -39,8 +39,11 @@ services:
         protocol: udp
     volumes:
       - type: bind
-        source: ~/Downloads
+        source: ~/downloads
         target: /downloads
+      - type: bind
+        source: ~/downloads/torrents
+        target: /watch
       - type: bind
         source: ~/.config/transmission
         target: /config
