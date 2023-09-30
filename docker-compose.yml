@@ -1,23 +1,22 @@
 version: "3"
 
 services:
-  homepage:
-    image: ghcr.io/benphelps/homepage:latest
-    container_name: homepage
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:latest
+    container_name: heimdall
     environment:
-      PUID: 1000
-      PGID: 1000
-    ports:
-      - target: 3000
-        published: 3000
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
     volumes:
       - type: bind
-        source: ~/.config/homepage
-        target: /app/config
-      - type: bind
-        source: /var/run/docker.sock
-        target: /var/run/docker.sock
-        read_only: true
+        source: ~/.config/heimdall
+        target: /config
+    ports:
+      - target: 80
+        published: 80
+      - target: 443
+        published: 443
     restart: unless-stopped
 
   transmission:
