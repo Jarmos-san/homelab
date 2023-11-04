@@ -33,6 +33,7 @@ That said, following are a list of tools I plan on adding to the server;
 | [Homepage](https://github.com/benphelps/homepage)            | For managing the containerised applications right within an accesible browser |
 | [AdGuard Home](https://github.com/AdguardTeam/AdGuardHome)   | For network-wide adblocking and malware filtering                             |
 | [Transmission BitTorrent Client](https://transmissionbt.com) | To download and seed Torrent files                                            |
+| Some URL Shortener (**TBD**)                                 |                                                                               |
 
 ...more such tools will be added to the list as & when the need arises!
 
