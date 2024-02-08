@@ -26,4 +26,4 @@ jobs:
           cp  "shfmt_v3.7.0_linux_amd64" "/usr/local/bin/shfmt"
 
       - name: Setup Pre-Commit for QA Checks
-        uses: pre-commit/action@v3.0.0
+        uses: pre-commit/action@v3.0.1
