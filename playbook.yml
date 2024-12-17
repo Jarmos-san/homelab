@@ -7,3 +7,4 @@
     - name: Print Message
       ansible.builtin.debug:
         msg: Hello World!
+# vim: ft=yaml.ansible
