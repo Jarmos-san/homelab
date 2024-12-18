@@ -1,10 +1,9 @@
-- name: My First Play
+- name: Homelab Setup
   hosts: homelab
   tasks:
-    - name: Ping my Hosts
-      ansible.builtin.ping:
-
-    - name: Print Message
-      ansible.builtin.debug:
-        msg: Hello World!
+    - name: Update the System Packages
+      become: true
+      ansible.builtin.dnf5:
+        name: "*"
+        state: latest
 # vim: ft=yaml.ansible
