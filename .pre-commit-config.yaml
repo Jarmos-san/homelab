@@ -16,3 +16,11 @@ repos:
         name: executable shell scripts extensions are removed
       - id: shellcheck
         name: check for linting errors in shell files
+
+  - repo: https://github.com/ansible/ansible-lint
+    rev: v24.12.2
+    hooks:
+      - id: ansible-lint
+        name: lint Ansible files
+        additional_dependencies:
+          - ansible
