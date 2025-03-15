@@ -36,7 +36,14 @@
 
     - name: Install Necessary Software
       ansible.builtin.dnf5:
-        name: ["git", "curl", "make", "tmux", "neovim", "nodejs"]
+        name:
+          - "git"
+          - "curl"
+          - "make"
+          - "tmux"
+          - "neovim"
+          - "nodejs"
+          - "dnf-plugins-core"
 
     - name: Fetch the Dotfiles
       ansible.builtin.git:
@@ -51,6 +58,37 @@
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
         mode: "0755"
+
+    - name: Add Docker's Official Repository
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/fedora/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+        mode: "0644"
+
+    - name: Install Docker Packages
+      ansible.builtin.dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+
+    - name: Start and Enable Docker Service
+      ansible.builtin.systemd:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Add user "jarmos" to the Docker Group
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: true
+
+    - name: Force Ansible to Reconnect & Refresh Groups
+      ansible.builtin.meta: reset_connection
 
     - name: Ping Server
       ansible.builtin.ping:
