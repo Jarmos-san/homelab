@@ -7,36 +7,61 @@
 
 **DISCLAIMER**: This is a **work-in-progress** project!
 
-This repository holds the contents for setting up a personal
+This repository holds the contents for setting and configuring up a personal
 [Home Server](https://en.wikipedia.org/wiki/Home_server). You can run the
-following command to automate the setup procedure at one go;
+following command to automate the setup procedure using the power of
+[Ansible](https://www.ansible.com).
 
-```console
-curl -fsSL https://tinyurl.com/setup-homelab | bash
-```
+## Getting Started
 
-The server will be powered by [Debian](https://www.debian.org/) (or a distro
-based on Debian like [Ubuntu Server](https://ubuntu.com/server)) and the tools
-installed on the server will be managed by [Docker](https://www.docker.com).
-There is also an [automation script](./setup) which downloads and sets up some
-of the necessary tools for the server before the services can be setup.
+To get started with setting up the homelab, follow these instructions:
 
-That said, following are a list of tools I plan on adding to the server;
+1. Install [Fedora Server](https://fedoraproject.org/server).
 
-| Software Name                                                | Reasons for Inclusion                                                         |
-| ------------------------------------------------------------ | ----------------------------------------------------------------------------- |
-| [Sonarr](https://sonarr.tv) (_unplanned_)                    | For automatic downloading of my favourite animes & TV shows                   |
-| [Prowlarr](https://wiki.servarr.com/prowlarr) (_unplanned_)  | For managing the indexes under a single banner                                |
-| [Radarr](https://radarr.video) (_unplanned_)                 | For downloading my favourite movies whenever they are available               |
-| [Lidarr](https://lidarr.audio) (_unplanned_)                 | For automatic downloading & local archival of songs                           |
-| [Jeyllfin](https://jellyfin.org) (_unplanned_)               | For managing all the media downloaded using the aforementioned tools          |
-| [Homepage](https://github.com/benphelps/homepage)            | For managing the containerised applications right within an accesible browser |
-| [AdGuard Home](https://github.com/AdguardTeam/AdGuardHome)   | For network-wide adblocking and malware filtering                             |
-| [Transmission BitTorrent Client](https://transmissionbt.com) | To download and seed Torrent files                                            |
-| Some URL Shortener (**TBD**)                                 |                                                                               |
+2. Ensure the following tools are installed and accessible -
+   [Task](https://taskfile.dev), [Ansible](https://www.ansible.com) and
+   [Python](https://www.python.org) on a seperate ("host") computer (which can
+   SSH into the homelab).
 
-...more such tools will be added to the list as & when the need arises!
+3. Clone the contents of this repository to the "host" computer by running:
 
-**NOTE**: Most of the aforementioned Container Images will be grabbed from
-[LinuxServer.io](https://www.linuxserver.io/) since those are community
-maintained and are specifically configured for usage within server environments!
+   ```console
+   git clone https://github.com/Jarmos-san/homelab.git && cd homelab
+   ```
+
+4. With the contents of the repository freshly cloned, run the relevant Task
+   command to setup the server for the first time;
+
+   ```console
+   task setup
+   ```
+
+   The command above will automate the setup process without much manual
+   intervention. Regardless, while the setup process continues doing its thing,
+   you should consider grabbing a cup of coffee (or tea) since it is going to
+   take a while to complete!
+
+**NOTE**: The contents of the repository has been configured (and written)
+keeping in mind a Fedora Server system, other Linux distributions are not
+supported (yet)!
+
+## List of Software Used
+
+My homelab runs the following list of software:
+
+| Software Name                                                | Reasons for Inclusion                                                         | Implemented |
+| ------------------------------------------------------------ | ----------------------------------------------------------------------------- | ----------- |
+| [Sonarr](https://sonarr.tv) (_unplanned_)                    | For automatic downloading of my favourite animes & TV shows                   | ❌          |
+| [Prowlarr](https://wiki.servarr.com/prowlarr) (_unplanned_)  | For managing the indexes under a single banner                                | ❌          |
+| [Radarr](https://radarr.video) (_unplanned_)                 | For downloading my favourite movies whenever they are available               | ❌          |
+| [Lidarr](https://lidarr.audio) (_unplanned_)                 | For automatic downloading & local archival of songs                           | ❌          |
+| [Jeyllfin](https://jellyfin.org) (_unplanned_)               | For managing all the media downloaded using the aforementioned tools          | ❌          |
+| [Homepage](https://github.com/benphelps/homepage)            | For managing the containerised applications right within an accesible browser | ✅          |
+| [AdGuard Home](https://github.com/AdguardTeam/AdGuardHome)   | For network-wide adblocking and malware filtering                             | ❌          |
+| [Transmission BitTorrent Client](https://transmissionbt.com) | To download and seed Torrent files                                            | ✅          |
+| Some URL Shortener (**TBD**)                                 |                                                                               | ❌          |
+
+The software running in the homelab are all containerised using
+[Docker](https://www.docker.com) and most of the Docker Images are fetched from
+[LinuxServer.io](https://linuxserver.io) unless it is **ONLY** available
+elsewhere.
