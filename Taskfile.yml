@@ -1,0 +1,26 @@
+version: "3"
+
+tasks:
+  default:
+    desc: Run maintenance tasks on the homelab.
+    summary: |
+      Run maintenance tasks on the homelab.
+
+      The default task is ONLY responsible for running maintenance tasks on the
+      homelab and is not intended for anything else. The task will assume the
+      previous `task setup` command has already been run before and the homelab
+      is at its latest expected state.
+    dir: ansible
+    cmd: ansible-playbook maintenance.yml
+
+  setup:
+    desc: Setup the homelab.
+    summary: |
+      Setup the homelab.
+
+      This task is intended to be used ONLY once when setting up a fresh new
+      homelab for the first time. Post setup, the task is not expected to be
+      run at all. If necessary (perhaps for maintenance reasons), run the
+      default `task` command instead.
+    dir: ansible
+    cmd: ansible-playbook setup.yml
