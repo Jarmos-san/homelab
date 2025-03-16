@@ -1,0 +1,20 @@
+---
+# Docker Repository URL
+docker_repo_url: "https://download.docker.com/linux/fedora/docker-ce.repo"
+
+# Docker Repository Path
+docker_repo_dest: "/etc/yum.repos.d/docker-ce.repo"
+
+# Docker Packages
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
+
+# Docker Service
+docker_service_name: "docker"
+
+# Docker Group
+docker_group: "docker"
