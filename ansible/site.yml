@@ -43,7 +43,7 @@
           - "tmux"
           - "neovim"
           - "nodejs"
-          - "dnf-plugins-core"
+          - "cmatrix"
 
     - name: Fetch the Dotfiles
       ansible.builtin.git:
