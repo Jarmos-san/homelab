@@ -1,0 +1,14 @@
+# Configuration directory for Transmission
+transmission_config_dir: /home/{{ ansible_user }}/.config/transmission
+
+# Directory for Transmission to download the content to
+transmission_downloads_dir: /home/{{ ansible_user }}/downloads
+
+# Directory for Transmission to categorise the TV shows to
+transmission_watch_dir: /home/{{ ansible_user }}/watch
+
+# The timezone to set for Transmission
+transmission_timezone: "Asia/Kolkata"
+
+# The network for the Transmission Docker containers
+transmission_network: "media"
