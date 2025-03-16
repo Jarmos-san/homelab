@@ -14,3 +14,9 @@ common_packages:
   - neovim
   - nodejs
   - cmatrix
+  - python3-pip
+
+# List of packages necessary for the Docker SDK for Python
+common_docker_sdk:
+  - docker
+  - requests
