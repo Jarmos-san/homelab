@@ -1,0 +1,23 @@
+---
+- name: Perform Homelab Maintenance
+  hosts: homelab
+  user: jarmos
+  become: true
+
+  tasks:
+    - name: Update Installed Packages
+      ansible.builtin.dnf5:
+        name: "*"
+        state: latest
+
+    - name: Restart Docker Service
+      ansible.builtin.systemd:
+        name: docker
+        state: restarted
+
+    - name: Clean Up Unused Docker Resources
+      community.docker.docker_prune:
+        containers: true
+        images: true
+        networks: true
+        volumes: true
