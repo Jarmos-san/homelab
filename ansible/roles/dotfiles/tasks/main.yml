@@ -1,14 +1,16 @@
 ---
-- name: Fetch the Dotfiles
+- name: Fetch the Dotfiles Repository
   ansible.builtin.git:
-    repo: https://github.com/Jarmos-san/dotfiles.git
-    dest: /home/{{ ansible_user }}/.dotfiles
-    version: main
+    repo: "{{ dotfiles_repo_url }}"
+    dest: "{{ dotfiles_dest }}"
+    version: "{{ dotfiles_version }}"
+    update: true
+    force: false
 
-- name: Assign the Dotfiles Directory to the "jarmos" User
+- name: Ensure Proper Ownership and Permissions for Dotfiles
   ansible.builtin.file:
-    path: /home/{{ ansible_user }}/.dotfiles
+    path: "{{ dotfiles_dest }}"
     state: directory
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
+    owner: "{{ dotfiles_owner }}"
+    group: "{{ dotfiles_group }}"
     mode: "0755"
