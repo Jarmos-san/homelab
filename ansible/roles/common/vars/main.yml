@@ -1,0 +1,16 @@
+---
+# User and Group Variables
+common_sudo_group: "wheel"
+
+# Sudoers Path
+common_sudoers_directory: "/etc/sudoers.d"
+
+# List of Required Packages
+common_packages:
+  - git
+  - curl
+  - make
+  - tmux
+  - neovim
+  - nodejs
+  - cmatrix
