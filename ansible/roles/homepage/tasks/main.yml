@@ -1,0 +1,23 @@
+---
+- name: Ensure homepage Config Directory Exists
+  ansible.builtin.file:
+    path: "{{ homepage_config_dir }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0755"
+
+- name: Deploy homepage Container
+  community.docker.docker_container:
+    name: homepage
+    image: ghcr.io/gethomepage/homepage:latest
+    restart_policy: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - "{{ homepage_config_dir }}:/config"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    env:
+      PUID: "1000"
+      PGID: "1000"
+      HOMEPAGE_ALLOWED_HOSTS: "*"
