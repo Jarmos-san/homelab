@@ -15,6 +15,7 @@ common_packages:
   - nodejs
   - cmatrix
   - python3-pip
+  - dnf5-plugin-automatic
 
 # List of packages necessary for the Docker SDK for Python
 common_docker_sdk:
