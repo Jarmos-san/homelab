@@ -5,6 +5,9 @@ on:
     branches-ignore:
       - "dependabot/**"
 
+permissions:
+  contents: read
+
 jobs:
   qa-checks:
     name: QA Checks
@@ -13,17 +16,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4.2.2
 
-      - name: Setup Python for the Environment
-        uses: actions/setup-python@v5.4.0
-        with:
-          python-version: "3.11"
+      - name: Install `ansible-lint`
+        run: pip install ansible-lint
 
-      - name: Download and Setup Shfmt
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release download --repo mvdan/sh --pattern "shfmt_v3.7.0_linux_amd64"
-          cp  "shfmt_v3.7.0_linux_amd64" "/usr/local/bin/shfmt"
-
-      - name: Setup Pre-Commit for QA Checks
-        uses: pre-commit/action@v3.0.1
+      - name: Lint Ansible Files
+        run: ansible-lint ./ansible
