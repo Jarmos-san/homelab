@@ -26,13 +26,13 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Cache Ansible Collections
-        uses: actions/cache@v4.2.2
+        uses: actions/cache@v4.2.3
         with:
           path: ~/.ansible/collections
           key: ansible-collections-${{ hashFiles('ansible/requirements.yml') }}
 
       - name: Cache Python Dependencies
-        uses: actions/cache@v4.2.2
+        uses: actions/cache@v4.2.3
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
