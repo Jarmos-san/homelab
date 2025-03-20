@@ -16,6 +16,8 @@ common_packages:
   - cmatrix
   - python3-pip
   - dnf5-plugin-automatic
+  - pcp
+  - python3-pcp
 
 # List of packages necessary for the Docker SDK for Python
 common_docker_sdk:

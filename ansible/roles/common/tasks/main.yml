@@ -27,6 +27,12 @@
     name: "{{ common_packages }}"
     state: latest
 
+- name: Start and Enable the pmlogger Service
+  ansible.builtin.systemd:
+    name: pmlogger.service
+    state: started
+    enabled: true
+
 - name: Install Docker SDK for Python
   ansible.builtin.pip:
     name: "{{ common_docker_sdk }}"
