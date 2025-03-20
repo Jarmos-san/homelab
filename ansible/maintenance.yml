@@ -21,3 +21,10 @@
         images: true
         networks: true
         volumes: true
+
+    - name: Update the Dotfiles
+      ansible.builtin.git:
+        repo: https://github.com/Jarmos-san/dotfiles.git
+        dest: /home/{{ ansible_user }}/.dotfiles
+        update: true
+        version: main
