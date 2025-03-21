@@ -1,0 +1,9 @@
+---
+# The remote repository to fetch the "cockpit-file" source from
+cockpit_remote_repo: https://github.com/cockpit-project/cockpit-files.git
+
+# The local directory to clone the "cockpit-files" remote repository to
+cockpit_local_repo: /tmp/cockpit-files
+
+# The "cockpit-files" install directory
+cockpit_install_dir: /usr/local/share/cockpit

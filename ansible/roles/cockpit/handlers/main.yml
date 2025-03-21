@@ -1,0 +1,15 @@
+---
+- name: Build and Install "cockpit-files"
+  block:
+    - name: Build "cockpit-files"
+      environment:
+        NODE_ENV: production
+      community.general.make:
+        chdir: "{{ cockpit_local_repo }}"
+
+    - name: Install 'cockpit-files'
+      community.general.make:
+        chdir: "{{ cockpit_local_repo }}"
+        target: install
+      args:
+        creates: "{{ cockpit_install_dir }}"

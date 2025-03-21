@@ -1,0 +1,11 @@
+---
+- name: Clone the "cockpit-files" Repository
+  ansible.builtin.git:
+    repo: "{{ cockpit_remote_repo }}"
+    dest: "{{ cockpit_local_repo }}"
+    clone: true
+    update: true
+    version: main
+  register: git_clone
+  changed_when: git_clone.before != git_clone.after
+  notify: Build and Install "cockpit-files"
