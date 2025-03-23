@@ -18,6 +18,7 @@
     - settings.yaml.j2
     - bookmarks.yaml.j2
     - widgets.yaml.j2
+    - services.yaml.j2
 
 - name: Deploy Homepage Container
   community.docker.docker_container:

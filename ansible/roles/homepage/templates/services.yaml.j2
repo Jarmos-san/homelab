@@ -1,0 +1,15 @@
+- Download Clients:
+    - Transmission:
+        icon: si-transmission
+        href: http://{{ ansible_host }}:9091/transmission/web
+        description: The Free & Open-Source torrent client
+        widget:
+            type: transmission
+            url: http://{{ ansible_host }}:9091
+            rpcUrl: /transmission/
+
+- Server Management:
+    - Cockpit:
+        icon: si-cockpit
+        href: http://{{ ansible_host }}:9090
+        description: Manage the homelab server through a Web UI
