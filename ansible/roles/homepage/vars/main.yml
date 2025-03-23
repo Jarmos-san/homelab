@@ -1,2 +1,8 @@
+# Homepage Docker image URL
+homepage_image: ghcr.io/gethomepage/homepage:latest
+
 # Configuration directory for homepage
 homepage_config_dir: /home/{{ ansible_user }}/.config/homepage
+
+# The homepage host to accept connections from
+homepage_allowed_hosts: "{{ ansible_host }}:3000"

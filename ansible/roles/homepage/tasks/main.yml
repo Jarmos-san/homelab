@@ -1,5 +1,5 @@
 ---
-- name: Ensure homepage Config Directory Exists
+- name: Ensure Homepage Config Directory Exists
   ansible.builtin.file:
     path: "{{ homepage_config_dir }}"
     state: directory
@@ -7,41 +7,31 @@
     group: "{{ ansible_user }}"
     mode: "0755"
 
-- name: Deploy the Homepage Settings
+- name: Deploy Homepage Configuration Files
   ansible.builtin.template:
-    src: templates/settings.yaml.j2
-    dest: "{{ homepage_config_dir }}/settings.yaml"
+    src: templates/{{ item }}
+    dest: "{{ homepage_config_dir }}/{{ item | regex_replace('.j2$', '') }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: "0644"
+  loop:
+    - settings.yaml.j2
+    - bookmarks.yaml.j2
+    - widgets.yaml.j2
 
-- name: Configure the Homepage Bookmarks
-  ansible.builtin.template:
-    src: templates/bookmarks.yaml.j2
-    dest: "{{ homepage_config_dir }}/bookmarks.yaml"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: "0644"
-
-- name: Configure the Homepage Widgets
-  ansible.builtin.template:
-    src: templates/widgets.yaml.j2
-    dest: "{{ homepage_config_dir }}/widgets.yaml"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: "0644"
-
-- name: Deploy homepage Container
+- name: Deploy Homepage Container
   community.docker.docker_container:
     name: homepage
-    image: ghcr.io/gethomepage/homepage:latest
+    image: "{{ homepage_image }}"
     restart_policy: unless-stopped
+    recreate: true
+    pull: true
     ports:
       - "3000:3000"
     volumes:
       - "{{ homepage_config_dir }}:/config"
       - /var/run/docker.sock:/var/run/docker.sock:ro
     env:
-      PUID: "1000"
-      PGID: "1000"
-      HOMEPAGE_ALLOWED_HOSTS: "*"
+      PUID: "{{ ansible_user_uid | default(1000) }}"
+      PGID: "{{ ansible_user_gid | default(1000) }}"
+      HOMEPAGE_ALLOWED_HOSTS: "{{ homepage_allowed_hosts }}"
