@@ -7,6 +7,30 @@
     group: "{{ ansible_user }}"
     mode: "0755"
 
+- name: Deploy the Homepage Settings
+  ansible.builtin.template:
+    src: templates/settings.yaml.j2
+    dest: "{{ homepage_config_dir }}/settings.yaml"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"
+
+- name: Configure the Homepage Bookmarks
+  ansible.builtin.template:
+    src: templates/bookmarks.yaml.j2
+    dest: "{{ homepage_config_dir }}/bookmarks.yaml"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"
+
+- name: Configure the Homepage Widgets
+  ansible.builtin.template:
+    src: templates/widgets.yaml.j2
+    dest: "{{ homepage_config_dir }}/widgets.yaml"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"
+
 - name: Deploy homepage Container
   community.docker.docker_container:
     name: homepage
