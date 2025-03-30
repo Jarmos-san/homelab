@@ -8,4 +8,4 @@
     version: main
   register: git_clone
   changed_when: git_clone.before != git_clone.after
-  notify: Build and Install cockpit-files
+  notify: Build and install cockpit-files

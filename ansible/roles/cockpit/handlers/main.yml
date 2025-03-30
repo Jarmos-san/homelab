@@ -1,5 +1,5 @@
 ---
-- name: Build and Install cockpit-files
+- name: Build and install cockpit-files
   block:
     - name: Build "cockpit-files"
       environment:
