@@ -1,0 +1,13 @@
+---
+- name: Create Jellyfin Container
+  community.docker.docker_container:
+    name: jellyfin
+    image: lscr.io/linuxserver/jellyfin:latest
+    state: started
+    restart_policy: unless-stopped
+    ports:
+      - "8096:8096"
+    volumes:
+      - "{{ jellyfin_config_dir }}:/config"
+      - "{{ jellyfin_tvshows_dir }}:/data/tvshows"
+      - "{{ jellyfin_movies_dir }}:/data/movies"

@@ -1,0 +1,8 @@
+# The configuration directory for Jellyfin
+jellyfin_config_dir: "/home/{{ ansible_user }}/.config/jellyfin"
+
+# The directory for TV shows, anime and episodic media
+jellyfin_tvshows_dir: "/home/{{ ansible_user }}/watch/tvshows"
+
+# The directory for movies and related long form media
+jellyfin_movies_dir: "/home/{{ ansible_user }}/watch/movies"
