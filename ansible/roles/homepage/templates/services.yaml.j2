@@ -1,6 +1,6 @@
 - Download Clients:
     - Transmission:
-        icon: si-transmission
+        icon: transmission
         href: http://{{ ansible_host }}:9091/transmission/web
         description: The Free & Open-Source torrent client
         widget:
@@ -8,8 +8,18 @@
             url: http://{{ ansible_host }}:9091
             rpcUrl: /transmission/
 
-- Server Management:
-    - Cockpit:
-        icon: si-cockpit
-        href: http://{{ ansible_host }}:9090
-        description: Manage the homelab server through a Web UI
+- Media:
+    - Jellyfin:
+        icon: jellyfin
+        href: http://{{ ansible_host }}:8096
+        description: Access a self-hosted PVR (and an alternative to Netflix)
+        widget:
+            type: jellyfin
+            url: http://{{ ansible_host }}:8096
+            // TODO: Secure the API key using Ansible Vault instead
+            key: 42673ab99b4b453ea3e01798bc6462c8
+            enableBlocks: true
+            enableNowPlaying: true
+            enableUser: true
+            showEpisodeNumber: true
+            expandOneStreamToTwoRows: true
