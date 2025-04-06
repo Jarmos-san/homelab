@@ -1,4 +1,5 @@
 ---
+# Ensure the "jarmos" group is added to the homelab
 - name: Ensure Required User Groups Exist
   ansible.builtin.user:
     name: "{{ ansible_user }}"
@@ -6,6 +7,7 @@
     append: true
   tags: [common]
 
+# Ensure the "jarmos" user has sudo access
 - name: Configure passwordless sudo access
   tags: [common]
   block:
@@ -26,6 +28,7 @@
         mode: "0440"
         validate: "/usr/sbin/visudo --check --file=%s"
 
+# Install some necessary packages for maintaining the homelab
 - name: Install Required Packages
   ansible.builtin.package:
     name: "{{ item }}"
@@ -33,6 +36,8 @@
   loop: "{{ common_packages }}"
   tags: [common]
 
+# Ensure the "pmlogger" service is enabled and started since it is necessary for
+# tracking various metrics of the server (like CPU usage and so on)
 - name: Start and Enable the pmlogger Service
   ansible.builtin.systemd:
     name: pmlogger.service
@@ -41,6 +46,7 @@
   notify: Restart pmlogger
   tags: [common]
 
+# Ensure the SDK for managing Docker using Ansible is available on the server
 - name: Install Docker SDK for Python
   ansible.builtin.pip:
     name: "{{ item }}"
