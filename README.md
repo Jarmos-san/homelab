@@ -55,7 +55,7 @@ My homelab runs the following list of software:
 | [Prowlarr](https://wiki.servarr.com/prowlarr) (_unplanned_)                                           | For managing the indexes under a single banner                                | ❌          |
 | [Radarr](https://radarr.video) (_unplanned_)                                                          | For downloading my favourite movies whenever they are available               | ❌          |
 | [Lidarr](https://lidarr.audio) (_unplanned_)                                                          | For automatic downloading & local archival of songs                           | ❌          |
-| [Jeyllfin](https://jellyfin.org) (_unplanned_)                                                        | For managing all the media downloaded using the aforementioned tools          | ❌          |
+| [Jeyllfin](https://jellyfin.org)                                                                      | For managing all the media downloaded using the aforementioned tools          | ✅          |
 | [Homepage](https://github.com/benphelps/homepage)                                                     | For managing the containerised applications right within an accesible browser | ✅          |
 | [AdGuard Home](https://github.com/AdguardTeam/AdGuardHome)                                            | For network-wide adblocking and malware filtering                             | ❌          |
 | [Transmission BitTorrent Client](https://transmissionbt.com) (with [Flood](https://flood.js.org/))    | To download and seed Torrent files                                            | ✅          |
