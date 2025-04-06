@@ -4,36 +4,46 @@
     name: "{{ ansible_user }}"
     groups: "{{ common_sudo_group }}"
     append: true
+  tags: [common]
 
-- name: Ensure Sudoers Directory Exists
-  ansible.builtin.file:
-    path: "{{ common_sudoers_directory }}"
-    state: directory
-    owner: root
-    group: root
-    mode: "0750"
+- name: Configure passwordless sudo access
+  tags: [common]
+  block:
+    - name: Ensure Sudoers Directory Exists
+      ansible.builtin.file:
+        path: "{{ common_sudoers_directory }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0750"
 
-- name: Grant Passwordless sudo Access to User
-  ansible.builtin.template:
-    src: sudoers.j2
-    dest: "{{ common_sudoers_directory }}/{{ ansible_user }}"
-    owner: root
-    group: root
-    mode: "0440"
-    validate: "/usr/sbin/visudo --check --file=%s"
+    - name: Grant Passwordless sudo Access to User
+      ansible.builtin.template:
+        src: sudoers.j2
+        dest: "{{ common_sudoers_directory }}/{{ ansible_user }}"
+        owner: root
+        group: root
+        mode: "0440"
+        validate: "/usr/sbin/visudo --check --file=%s"
 
 - name: Install Required Packages
-  ansible.builtin.dnf5:
-    name: "{{ common_packages }}"
-    state: latest
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ common_packages }}"
+  tags: [common]
 
 - name: Start and Enable the pmlogger Service
   ansible.builtin.systemd:
     name: pmlogger.service
     state: started
     enabled: true
+  notify: Restart pmlogger
+  tags: [common]
 
 - name: Install Docker SDK for Python
   ansible.builtin.pip:
-    name: "{{ common_docker_sdk }}"
+    name: "{{ item }}"
     state: present
+  loop: "{{ common_docker_sdk }}"
+  tags: [common]

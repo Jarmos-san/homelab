@@ -1,0 +1,5 @@
+---
+- name: Restart pmlogger
+  ansible.builtin.systemd:
+    name: pmlogger.service
+    state: restarted
