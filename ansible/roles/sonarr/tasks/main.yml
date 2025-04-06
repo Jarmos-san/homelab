@@ -1,0 +1,14 @@
+---
+- name: Create Sonarr Container
+  community.docker.docker_container:
+    name: sonarr
+    image: lscr.io/linuxserver/sonarr:latest
+    state: started
+    restart_policy: unless-stopped
+    ports:
+      - "8989:8989"
+    volumes:
+      - "{{ sonarr_config_dir }}:/config"
+      - "{{ sonarr_tvshows_dir }}:/tv"
+      - "{{ sonarr_movies_dir }}:/movies"
+      - "{{ sonarr_downloads_dir }}:/downloads"

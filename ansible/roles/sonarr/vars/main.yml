@@ -1,0 +1,11 @@
+# The configuration directory for Sonarr
+sonarr_config_dir: "/home/{{ ansible_user }}/.config/sonarr"
+
+# The downloads directory for the download client (to be used by Sonarr)
+sonarr_downloads_dir: "/home/{{ ansible_user }}/downloads"
+
+# The directory containing the TV shows
+sonarr_tvshows_dir: "/home/{{ ansible_user }}/watch/tvshows"
+
+# The directory for the movies
+sonarr_movies_dir: "/home/{{ ansible_user }}/watch/movies"

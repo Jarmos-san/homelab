@@ -23,3 +23,13 @@
             enableUser: true
             showEpisodeNumber: true
             expandOneStreamToTwoRows: true
+
+    - Sonarr:
+        icon: sonarr
+        href: http://{{ ansible_host }}:8989
+        description: Automate the download process for TV shows and movies
+        widget:
+            type: sonarr
+            url: http://{{ ansible_host }}:8989
+            key: e3a9bd63d4704f30b0a27ba6509c2301
+            enableQueue: true
