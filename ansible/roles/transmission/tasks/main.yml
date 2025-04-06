@@ -1,23 +1,9 @@
 ---
-- name: Create Transmission Docker Network
-  community.docker.docker_network:
-    name: "{{ transmission_network }}"
-
-- name: Ensure Transmission Config Directory Exists
-  ansible.builtin.file:
-    path: "{{ transmission_config_dir }}"
-    state: directory
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: "0755"
-
-- name: Deploy Transmission Container
+- name: Setup Tranmission
   community.docker.docker_container:
     name: transmission
     image: lscr.io/linuxserver/transmission:latest
     restart_policy: unless-stopped
-    networks:
-      - name: "{{ transmission_network }}"
     ports:
       - "9091:9091"
       - "51413:51413"
